@@ -1,0 +1,21 @@
+<% if (is_month() === false) { %>
+  <div class="archive-box">
+    <h3>Archives</h3>
+    <%- list_archives({format: "YYYY MMMM"}) %>
+  </div>
+<% } else if (is_month() === true) { %>
+  <div class="archive-box">
+    <h3><%= date(page.year + '-' + (page.month < 10 ? '0' + page.month : page.month), "YYYY MMMM") %></h3>
+    <% page.posts.each(post => { %>
+      <div class="archive-item">
+        <a href="<%=url_for(post.path)%>">
+          <%=post.title || post.path.split('/')[3]%>
+        </a>
+        <time datetime="<%=date_xml(post.date)%>">
+          <%=date(post.date)%>
+        </time>
+      </div>
+    <% }) %>
+  </div>
+  <%- partial('_partial/paginator') %>
+<% } %>

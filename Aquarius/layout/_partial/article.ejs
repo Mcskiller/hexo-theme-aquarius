@@ -1,0 +1,32 @@
+<% if(index){ %>
+  <article class="post">
+    <div class="post-title">
+      <h1><a href="<%- url_for(post.path) %>" class="post-title-link"><%= post.title || post.path.split('/')[3] %></a></h1>
+    </div>
+    <div class="post-meta">
+      <span class="post-time"><%- date(post.date, "YYYY-MM-DD") %></span>
+    </div>
+    <div class="post-content">
+      <div class="post-content-excerpt markdown-body">
+        <% if (!post.excerpt) { %>
+          <%- post.content.substring(post.content.indexOf('<p>'), post.content.indexOf('</p>')) %>
+        <% } else { %>
+          <%- post.excerpt %>
+        <% } %>
+      </div>
+    </div>
+    <div class="read-more-link">
+      <a href="<%- config.root %><%- post.path %>#more"><%= __('Readmore') %></a>
+    </div>
+  </article>
+<% } else if (!index) { %>
+  <div class="article-box">
+    <div class="markdown-meta">
+      <time datetime="<%- date(post.date, "YYYY-MMMM") %>"><%- date(post.date, "YYYY MMMM") %></time>
+    </div>
+    <article class="markdown-body">
+      <h1><%= page.title %></h1>
+      <%- page.content %>
+    </article>
+  </div>
+<% } %>
