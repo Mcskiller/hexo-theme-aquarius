@@ -1,0 +1,21 @@
+<% if (is_category() === false) { %>
+  <div class="category-box">
+    <h3>Categories</h3>
+    <%- list_categories() %>
+  </div>
+<% } else if (is_category() === true) { %>
+  <div class="category-box">
+    <h3><%=page.category%></h3>
+    <% page.posts.each(post => { %>
+      <div class="category-item">
+        <a href="<%=url_for(post.path)%>">
+          <%=post.title%>
+        </a>
+        <time datetime="<%=date_xml(post.date)%>">
+          <%=date(post.date)%>
+        </time>
+      </div>
+    <% }); %>
+  </div>
+  <%- partial('_partial/paginator') %>
+<% } %>
